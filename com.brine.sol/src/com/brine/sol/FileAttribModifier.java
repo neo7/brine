@@ -22,7 +22,7 @@ import com.brine.sol.logic.ModificationLogic;
  * @author saurabhtiwari
  *
  */
-public class JSFFAttribModifier {
+public class FileAttribModifier {
 	private List<String> chageSets = new ArrayList<String>();
 	
 	public void modifyFileAttributes(List<String> fileLocationList) throws IOException {
@@ -78,7 +78,10 @@ public class JSFFAttribModifier {
 	}
 	
 	private void createChangeSetReport() {
-		File changeSetReportFile = new File("/Users/saurabhtiwari/changeset-jsff-report.txt");
+		FetchConfigValues fetchConfigValues = new FetchConfigValues();
+		String REPORT_GEN_LOCATION = fetchConfigValues.getPropertyValue("REPORT_GEN_LOCATION");
+		
+		File changeSetReportFile = new File(REPORT_GEN_LOCATION);
 		PrintWriter printWriter = null;
 		try {
 			printWriter = new PrintWriter(new FileOutputStream(changeSetReportFile));

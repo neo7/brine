@@ -17,16 +17,6 @@ import org.apache.commons.io.FileUtils;
  */
 public class Main {
 
-	/**
-	 * Use this location for Testing the Single JSFF file.
-	 */
-	private static String test_fileLocation = "/Users/saurabhtiwari/workspaces"
-			+ "/office_workspace/View/com.ofss.fc.ui.view.collection"
-			+ "/src/com/ofss/fc/ui/view/collection/core/backing";
-
-	/**
-	 * Use this variable for Changing entries in the whole directory.
-	 */
 	private static String workingDirectoryLocation = "/Users/saurabhtiwari/workspaces/office_workspace/TaskFlows";
 
 	/**
@@ -35,10 +25,13 @@ public class Main {
 	public static void main(String[] args) {
 		List<String> fileLocationList = new ArrayList<String>();
 		// fileLocationList.add(managed_bean_location);
+		FetchConfigValues fetchConfigValues = new FetchConfigValues();
+		String work_dir_location = fetchConfigValues.getPropertyValue("WORK_DIR_LOCATION");
+		String file_type = fetchConfigValues.getPropertyValue("FILE_TYPE");
 
-		File workingDirectory = new File(workingDirectoryLocation);
+		File workingDirectory = new File(work_dir_location);
 		// specify the type of file
-		String[] extensions = new String[] { "jsff" };
+		String[] extensions = new String[] { file_type };
 
 		List<File> files = (List<File>) FileUtils.listFiles(workingDirectory,
 				extensions, true);
@@ -64,7 +57,7 @@ public class Main {
 	}
 
 	private static void modifyFileAttributes(List<String> fileLocationList) throws FileNotFoundException {
-		JSFFAttribModifier jsffAttribModifier = new JSFFAttribModifier();
+		FileAttribModifier jsffAttribModifier = new FileAttribModifier();
 		try {
 			jsffAttribModifier.modifyFileAttributes(fileLocationList);
 		} catch (IOException e) {
